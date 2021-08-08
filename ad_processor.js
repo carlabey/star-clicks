@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         star-clicks ad process
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.0.1
 // @description  try to take over the world!
 // @author       carl abey
 // @match        https://www.star-clicks.com/portal/ads
@@ -23,11 +23,14 @@
     let adSelector = document.querySelectorAll("#BasicModulem9_11 > div.panel-body > a");
 
     function processAds(adSelector){
+        console.log("Ads processing started");
+        console.log(adSelector);
         let adsCount = adSelector.length;
         adSelector[0].click();
+        console.log("Ads count is ",adsCount);
         setTimeout(function(){
             let newAdsCount = adSelector.length;
-            if(adsCount === newAdsCount){
+            if(adsCount === newAdsCount && newAdsCount === 0){
                 console.log("Ads count didnt changed, reload page.");
                 location.reload();
             }else if(newAdsCount === 0){
@@ -43,5 +46,6 @@
         //using recursion to process the ads.
     };
 
-    processAds(adSelector);
+    setTimeout(processAds(adSelector),5000);
+    
 })();
